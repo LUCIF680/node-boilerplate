@@ -1,0 +1,4 @@
+include: 
+ - project: 'wil-workspace/wil-gitlab-boilerplate/node-boilerplate'
+   file: 'node.yml'
+   ref: main
