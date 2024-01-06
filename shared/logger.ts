@@ -1,24 +1,42 @@
 import winston, { Logger } from 'winston';
 import 'dotenv/config';
-const { combine, timestamp, colorize, errors } = winston.format;
+import util from 'util';
+const { combine, colorize } = winston.format;
 
-export const logger: Logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.json(),
-  transports: [
-    new winston.transports.File({ filename: 'error.log', level: 'error' }),
-    new winston.transports.File({ filename: 'combined.log' }),
-  ],
+const transform = () => {
+  return {
+    transform: (info: any) => {
+      info.oldMessage = info.message;
+      info.message = util.format(info.stack || info.message, ...(info[Symbol.for('splat')] || []));
+      return info;
+    },
+  };
+};
+
+const transformBack = () => {
+  return {
+    transform: (info: any) => {
+      info.message = info.oldMessage;
+      return info;
+    },
+  };
+};
+
+const logger: Logger = winston.createLogger({
+  format: combine(
+    colorize(),
+    transform(),
+    winston.format.printf((info: any) => {
+      return `${new Date()} [${info.level}] : ${info.stack || info.message}`;
+    }),
+    transformBack(),
+  ),
 });
 
-if (process.env.NODE_ENV !== 'prod') {
-  logger.add(
-    new winston.transports.Console({
-      format: combine(
-        errors({ stack: true }), // <-- use errors format
-        colorize(),
-        timestamp(),
-      ),
-    }),
-  );
-}
+logger.add(
+  new winston.transports.Console({
+    level: 'debug',
+  }),
+);
+
+export { logger };
