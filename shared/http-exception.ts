@@ -14,8 +14,6 @@ export function sanitize(error: HttpException) {
   switch (true) {
     case error.status === 404:
       return error;
-    case error instanceof HttpException:
-      return error;
     default:
       return new HttpException(500, error.message);
   }

@@ -1,8 +1,19 @@
 version: "3"
 services:
   backend:
-    container_name: wil-testing-backend-dev
+    command: npm run dev
     build: .
     ports:
       - "8000:8000"
     restart: always
+    # this only works in docker compose version > 2.2
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /app
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: package.json
+    container_name: ondc-api-dev
