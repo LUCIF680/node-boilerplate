@@ -1,7 +1,8 @@
 import { logger } from './shared/logger';
 import createServer from './app';
+import { getEnv } from './shared/utils';
 
-const port = process.env.PORT || 8000;
+const port: number = Number(getEnv('PORT'));
 
 const app = createServer();
 

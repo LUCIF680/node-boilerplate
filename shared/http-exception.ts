@@ -1,4 +1,4 @@
-import locals from './locals.json';
+import locals from './locals';
 
 export default class HttpException extends Error {
   status: number = 500;

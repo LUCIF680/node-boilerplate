@@ -27,7 +27,7 @@ const logger: Logger = winston.createLogger({
     colorize(),
     transform(),
     winston.format.printf((info: any) => {
-      return `${new Date()} [${info.level}] : ${info.stack || info.message}`;
+      return `${new Date().toISOString()} [${info.level}] : ${info.stack || info.message}`;
     }),
     transformBack(),
   ),

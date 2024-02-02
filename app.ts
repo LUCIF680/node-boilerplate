@@ -4,7 +4,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import testRoutes from './routes';
 import HttpException, { sanitize } from './shared/http-exception';
-import locals from './shared/locals.json';
+import locals from './shared/locals';
 import { logger } from './shared/logger';
 
 const createServer = (): express.Application => {
