@@ -18,6 +18,15 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-var-requires': 'error',
     '@typescript-eslint/no-inferrable-types': 'off',
+    'no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' }],
+    '@typescript-eslint/no-unused-vars': [
+      'warn',
+      {
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+        caughtErrorsIgnorePattern: '^_',
+      },
+    ],
     '@typescript-eslint/explicit-function-return-type': 'off',
     'no-console': 'warn',
     'padding-line-between-statements': [
@@ -29,13 +38,6 @@ module.exports = {
         blankLine: 'any',
         prev: ['const', 'let', 'var'],
         next: ['const', 'let', 'var'],
-      },
-    ],
-    'no-unused-vars': [
-      'error',
-      {
-        vars: 'all',
-        args: 'all',
       },
     ],
     'id-match': 0,
